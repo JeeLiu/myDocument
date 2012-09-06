@@ -1,0 +1,76 @@
+Checkout LLVM:
+Change directory to where you want the llvm directory placed.
+	svn co http://llvm.org/svn/llvm-project/llvm/trunk llvm
+Checkout Clang:
+	cd llvm/tools
+	svn co http://llvm.org/svn/llvm-project/cfe/trunk clang
+	cd ../..
+Checkout extra Clang Tools: (optional)
+	cd llvm/tools/clang/tools
+	svn co http://llvm.org/svn/llvm-project/clang-tools-extra/trunk extra
+	cd ../../../..
+Checkout Compiler-RT:
+	cd llvm/projects
+	svn co http://llvm.org/svn/llvm-project/compiler-rt/trunk compiler-rt
+	cd ../..
+-----------------------------------------以上 的步骤已做
+
+mkdir -p  build
+
+ cd build
+
+../llvm/configure
+
+make
+
+
+
+--------------------configure
+set configure PATH
+
+#: "${CC:=/opt/local/bin/clang}"
+: "${CC:=XXXXXX/build/Debug+Asserts/bin/clang}"
+
+#: "${CXX:=/opt/local/bin/clang++}"
+: "${CXX:=XXXXX/build/Debug+Asserts/bin/clang++}"
+
+
+---------------Building textmate
+
+
+git clone https://github.com/textmate/textmate.git (已做)
+cd textmate
+git submodule update --init
+./configure && ninja
+
+
+--------------Prerequisites （前提条件）
+To build the source the following must first be installed on your system:
+
+1、ninja — build system similar to make
+2、ragel — state machine compiler
+3、boost — portable C++ source libraries
+4、multimarkdown — marked-up plain text compiler
+5、mercurial — distributed SCM system
+
+
+
+To install using MacPorts run:
+
+	#sudo port install ninja ragel boost multimarkdown mercurial
+If port fails with a build error then likely you need to agree (system-wide) to Apple’s Xcode license:
+
+	#sudo xcodebuild -license
+You can also install the above using homebrew:
+
+	#brew install ragel boost multimarkdown hg ninja
+	
+	
+OS X 10.7 (Lion)
+
+If you are on OS X 10.7 you need pgrep and pkill (used by the “relaunch” build targets). To install using MacPorts:
+
+ 	#sudo port install proctools
+Or using homebrew:
+
+	#brew install proctools
